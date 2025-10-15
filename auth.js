@@ -93,10 +93,10 @@ export function showAuthModal(mode = 'login') {
       if (mode === 'register') {
         const fullName = document.getElementById('fullName').value;
         await authService.signUp(email, password, fullName);
-        showNotification('¡Registro exitoso! Recargando...');
+        showNotification('¡Registro exitoso!');
       } else {
         await authService.signIn(email, password);
-        showNotification('¡Sesión iniciada! Recargando...');
+        showNotification('¡Sesión iniciada!');
       }
 
       authModalOverlay.remove();
