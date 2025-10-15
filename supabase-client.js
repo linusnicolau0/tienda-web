@@ -227,3 +227,15 @@ export const productService = {
     return data;
   }
 };
+
+export const brandService = {
+  async getAllBrands() {
+    const { data, error } = await supabase
+      .from('brands')
+      .select('*')
+      .order('name', { ascending: true });
+
+    if (error) throw error;
+    return data;
+  }
+};

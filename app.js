@@ -1,4 +1,4 @@
-import { authService, cartService, orderService, productService } from './supabase-client.js';
+import { authService, cartService, orderService, productService, brandService } from './supabase-client.js';
 import { showAuthModal } from './auth.js';
 import { isUserAdmin, openAdminDashboard, closeAdminDashboard } from './admin-dashboard.js';
 
@@ -11,9 +11,12 @@ let selectedProduct = null;
 let selectedSize = null;
 let selectedColor = null;
 let currentSearchTerm = '';
+let brands = [];
 
 document.addEventListener('DOMContentLoaded', async function() {
     await initializeApp();
+    await loadBrands();
+    renderBrandFilters();
     renderProducts();
     setupEventListeners();
     updateCartCount();
@@ -70,6 +73,40 @@ async function loadProducts() {
     } catch (error) {
         console.error('Error loading products:', error);
     }
+}
+
+async function loadBrands() {
+    try {
+        const dbBrands = await brandService.getAllBrands();
+        brands = dbBrands;
+    } catch (error) {
+        console.error('Error loading brands:', error);
+    }
+}
+
+function renderBrandFilters() {
+    const filtersContainer = document.querySelector('.filters');
+    if (!filtersContainer) return;
+
+    filtersContainer.innerHTML = '<button class="filter-btn active" data-filter="all">Todos</button>';
+
+    brands.forEach(brand => {
+        const filterBtn = document.createElement('button');
+        filterBtn.className = 'filter-btn';
+        filterBtn.setAttribute('data-filter', brand.name);
+        filterBtn.textContent = brand.display_name;
+        filtersContainer.appendChild(filterBtn);
+    });
+
+    const filterButtons = filtersContainer.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            setActiveFilter(this, filterButtons);
+            currentBrandFilter = filter;
+            filterProducts();
+        });
+    });
 }
 
 async function loadUserCart() {
@@ -132,16 +169,6 @@ window.handleLogout = async function() {
 };
 
 function setupEventListeners() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const filter = this.getAttribute('data-filter');
-            setActiveFilter(this, filterButtons);
-            currentBrandFilter = filter;
-            filterProducts();
-        });
-    });
-
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -157,8 +184,9 @@ function setupEventListeners() {
 
             currentBrandFilter = 'all';
             const firstFilterBtn = document.querySelector('.filter-btn[data-filter="all"]');
+            const allFilterButtons = document.querySelectorAll('.filter-btn');
             if (firstFilterBtn) {
-                setActiveFilter(firstFilterBtn, filterButtons);
+                setActiveFilter(firstFilterBtn, allFilterButtons);
             }
 
             filterProducts();
