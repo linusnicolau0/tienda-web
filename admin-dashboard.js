@@ -1,6 +1,6 @@
 import { supabase } from './supabase-client.js';
 
-const ADMIN_USER_ID = '8eb5897b-0108-48d9-95b5-f4d751c031af';
+const ADMIN_USER_ID = '80ed04f7-a38b-4716-a066-8ae3ffe054b3';
 
 class AdminDashboard {
   constructor() {
