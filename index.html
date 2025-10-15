@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Era - Ropa Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1 class="logo">NEW<span>ERA</span></h1>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-link active" data-filter="all">Todos</a>
+                <a href="#" class="nav-link" data-filter="hombre">Hombres</a>
+                <a href="#" class="nav-link" data-filter="mujer">Mujeres</a>
+                <a href="#" class="nav-link" data-filter="ofertas">Ofertas</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Buscar productos...">
+                    <button class="search-btn" id="searchBtn">🔍</button>
+                </div>
+                <button class="admin-dashboard-btn" id="adminDashboardBtn" style="display: none;">⚙️</button>
+                <button class="profile-btn" id="profileBtn">👤</button>
+                <button class="cart-btn" id="cartBtn">
+                    🛒 <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Colección Premium</h1>
+            <p class="hero-subtitle">Descubre moda de lujo para cada estilo</p>
+            <button class="hero-btn">Comprar Ahora</button>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg" alt="Fashion Model">
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters-section">
+        <div class="container">
+            <h2 class="section-title">Nuestra Colección</h2>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="nike">Nike</button>
+                <button class="filter-btn" data-filter="adidas">Adidas</button>
+                <button class="filter-btn" data-filter="puma">Puma</button>
+                <button class="filter-btn" data-filter="under-armour">Under Armour</button>
+                <button class="filter-btn" data-filter="reebok">Reebok</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+        <div class="container">
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Carrito de Compras</h2>
+                <button class="close-cart" id="closeCart">×</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be populated by JavaScript -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span class="total-label">Total: </span>
+                    <span class="total-price" id="totalPrice">$0.00</span>
+                </div>
+                <button class="checkout-btn">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-content">
+            <div class="profile-header">
+                <h2>Mi Perfil</h2>
+                <button class="close-profile" id="closeProfile">×</button>
+            </div>
+            <div class="profile-body">
+                <!-- Guest Message (shown when not logged in) -->
+                <div class="guest-message" id="guestMessage">
+                    <div class="guest-icon">👤</div>
+                    <h3>Bienvenido a NEW ERA</h3>
+                    <p>Inicia sesión o regístrate para acceder a todas las funcionalidades</p>
+                    <div class="guest-features">
+                        <div class="feature-item">✓ Guarda tus productos favoritos</div>
+                        <div class="feature-item">✓ Rastrea tus pedidos</div>
+                        <div class="feature-item">✓ Accede a ofertas exclusivas</div>
+                        <div class="feature-item">✓ Historial de compras</div>
+                    </div>
+                    <div class="auth-actions">
+                        <button class="register-btn" onclick="handleRegister()">Registrarse</button>
+                        <button class="login-btn" onclick="handleLogin()">Iniciar Sesión</button>
+                    </div>
+                </div>
+
+                <!-- User Sections (shown when logged in) -->
+                <div class="user-sections" id="userSections" style="display: none;">
+                    <!-- User Info Section -->
+                    <div class="profile-section">
+                        <h3>Información Personal</h3>
+                        <div class="user-info" id="userInfo">
+                            <div class="info-item">
+                                <span class="info-label">Nombre:</span>
+                                <span class="info-value" id="userName">Usuario</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Email:</span>
+                                <span class="info-value" id="userEmail">usuario@email.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Summary Section -->
+                    <div class="profile-section">
+                        <h3>Resumen del Carrito</h3>
+                        <div class="cart-summary" id="cartSummary">
+                            <div class="summary-item">
+                                <span>Productos en carrito:</span>
+                                <span id="profileCartCount">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Total:</span>
+                                <span id="profileCartTotal">$0.00</span>
+                            </div>
+                            <button class="view-cart-btn" onclick="openCart(); closeProfile();">
+                                Ver Carrito Completo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Order History Section -->
+                    <div class="profile-section">
+                        <h3>Historial de Pedidos</h3>
+                        <div class="order-history" id="orderHistory">
+                            <div class="no-orders">
+                                <p>No tienes pedidos anteriores</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logout Section -->
+                    <div class="profile-section">
+                        <button class="logout-btn" onclick="handleLogout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <div class="product-modal-header">
+                <button class="close-product-modal" id="closeProductModal">×</button>
+            </div>
+            <div class="product-modal-body">
+                <div class="product-modal-image">
+                    <img id="modalProductImage" src="" alt="">
+                </div>
+                <div class="product-modal-info">
+                    <div class="modal-product-brand" id="modalProductBrand"></div>
+                    <h2 class="modal-product-name" id="modalProductName"></h2>
+                    <div class="modal-product-price" id="modalProductPrice"></div>
+                    <div class="product-description">
+                        <p>Producto de alta calidad con materiales premium. Diseño moderno y cómodo para uso diario.</p>
+                    </div>
+                    <div class="size-selection">
+                        <h3>Talla:</h3>
+                        <div class="size-options" id="sizeOptions"></div>
+                    </div>
+                    <div class="color-selection" id="colorSelection">
+                        <h3>Color:</h3>
+                        <div class="color-options" id="colorOptions"></div>
+                    </div>
+                    <button class="add-to-cart-modal" id="addToCartModal" disabled>
+                        Selecciona una talla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h2>Admin Dashboard</h2>
+                <button class="close-admin-modal" id="closeAdminModal">×</button>
+            </div>
+            <div class="admin-modal-body" id="adminContent">
+                <div class="loading">Cargando dashboard...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>NEW ERA</h3>
+                    <p>Ropa premium para el estilo de vida moderno</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Atención al Cliente</h4>
+                    <a href="#">Contáctanos</a>
+                    <a href="#">Guía de Tallas</a>
+                    <a href="#">Devoluciones</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <a href="#">Sobre Nosotros</a>
+                    <a href="#">Carreras</a>
+                    <a href="#">Prensa</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <a href="#">Instagram</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
