@@ -21,7 +21,23 @@ document.addEventListener('DOMContentLoaded', async function() {
     setupEventListeners();
     updateCartCount();
     await checkAndShowAdminButton();
+    handleCheckoutRedirect();
 });
+
+function handleCheckoutRedirect() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const checkoutStatus = urlParams.get('checkout');
+
+    if (checkoutStatus === 'success') {
+        showNotification('¡Pago exitoso! Tu pedido ha sido procesado.');
+        cart = [];
+        updateCartCount();
+        window.history.replaceState({}, '', window.location.pathname);
+    } else if (checkoutStatus === 'cancel') {
+        showNotification('Pago cancelado. Tu carrito sigue disponible.');
+        window.history.replaceState({}, '', window.location.pathname);
+    }
+}
 
 async function initializeApp() {
     try {
@@ -652,18 +668,37 @@ async function handleCheckout() {
         return;
     }
 
-    const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-
     try {
-        const dbCartItems = await cartService.getCartItems(currentUser.id);
-        await orderService.createOrder(currentUser.id, dbCartItems, totalAmount);
+        showNotification('Redirigiendo al checkout...');
 
-        cart = [];
-        updateCartCount();
-        closeCart();
-        showNotification('¡Pedido realizado con éxito!');
+        const dbCartItems = await cartService.getCartItems(currentUser.id);
+
+        const { data: { session } } = await authService.supabase.auth.getSession();
+
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${session.access_token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                cartItems: dbCartItems,
+                successUrl: `${window.location.origin}?checkout=success`,
+                cancelUrl: `${window.location.origin}?checkout=cancel`
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            throw new Error(data.error);
+        }
+
+        if (data.url) {
+            window.location.href = data.url;
+        }
     } catch (error) {
-        console.error('Error creating order:', error);
+        console.error('Error creating checkout session:', error);
         showNotification('Error al procesar el pedido');
     }
 }
