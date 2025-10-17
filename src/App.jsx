@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { productService, brandService, cartService, adminService, authService as supabaseAuth } from './services/supabase';
 import { useNotification } from './hooks/useNotification';
+import { LandingPage } from './components/LandingPage';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { BrandFilters } from './components/BrandFilters';
@@ -17,6 +18,7 @@ import { Footer } from './components/Footer';
 function AppContent() {
   const { user } = useAuth();
   const { notification, showNotification } = useNotification();
+  const [showLanding, setShowLanding] = useState(true);
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState([]);
   const [cart, setCart] = useState([]);
@@ -268,6 +270,10 @@ function AppContent() {
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  if (showLanding) {
+    return <LandingPage onEnter={() => setShowLanding(false)} />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
