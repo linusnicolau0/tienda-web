@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const BrandFilters = ({ brands, activeBrand, onBrandChange }) => {
   return (
     <section className="bg-white py-8">

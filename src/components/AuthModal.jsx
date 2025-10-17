@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
 export const AuthModal = ({ isOpen, onClose, initialMode = 'login', onSuccess }) => {

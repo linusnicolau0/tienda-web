@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { productService, brandService, adminService, supabase } from '../services/supabase';
 
 export const AdminDashboard = ({ isOpen, onClose }) => {

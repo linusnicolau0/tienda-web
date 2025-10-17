@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { productService, brandService, cartService, adminService, authService as supabaseAuth } from './services/supabase';
 import { useNotification } from './hooks/useNotification';

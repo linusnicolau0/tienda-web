@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const ProductCard = ({ product, onClick }) => {
   return (
     <div
