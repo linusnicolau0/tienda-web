@@ -1,19 +1,39 @@
-@import "tailwindcss";
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/preflight" layer(base);
+@import "tailwindcss/utilities" layer(utilities);
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-@theme {
-  --color-primary: #d4af37;
-  --color-dark: #1a1a1a;
-  --font-family-sans: 'Inter', sans-serif;
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #f5f5f5;
+  }
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@layer utilities {
+  .text-primary {
+    color: #d4af37;
+  }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f5f5f5;
+  .bg-primary {
+    background-color: #d4af37;
+  }
+
+  .border-primary {
+    border-color: #d4af37;
+  }
+
+  .hover\:text-primary:hover {
+    color: #d4af37;
+  }
+
+  .hover\:bg-opacity-90:hover {
+    --tw-bg-opacity: 0.9;
+  }
 }
