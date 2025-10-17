@@ -1,39 +1,184 @@
 @import "tailwindcss/theme" layer(theme);
 @import "tailwindcss/preflight" layer(base);
 @import "tailwindcss/utilities" layer(utilities);
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
   }
 
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    background-color: #FFFFFF;
+    color: #0B0B0B;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.2;
   }
 }
 
 @layer utilities {
+  .text-white-pure {
+    color: #FFFFFF;
+  }
+
+  .bg-white-pure {
+    background-color: #FFFFFF;
+  }
+
+  .text-black-carbon {
+    color: #0B0B0B;
+  }
+
+  .bg-black-carbon {
+    background-color: #0B0B0B;
+  }
+
+  .text-gray-smoke {
+    color: #1C1C1C;
+  }
+
+  .bg-gray-smoke {
+    background-color: #1C1C1C;
+  }
+
+  .text-gold-intense {
+    color: #D4AF37;
+  }
+
+  .bg-gold-intense {
+    background-color: #D4AF37;
+  }
+
+  .border-gold-intense {
+    border-color: #D4AF37;
+  }
+
+  .text-gold-soft {
+    color: #E0C873;
+  }
+
+  .bg-gold-soft {
+    background-color: #E0C873;
+  }
+
+  .border-gold-soft {
+    border-color: #E0C873;
+  }
+
   .text-primary {
-    color: #d4af37;
+    color: #D4AF37;
   }
 
   .bg-primary {
-    background-color: #d4af37;
+    background-color: #D4AF37;
   }
 
   .border-primary {
-    border-color: #d4af37;
+    border-color: #D4AF37;
+  }
+
+  .hover\:text-white-pure:hover {
+    color: #FFFFFF;
+  }
+
+  .hover\:bg-white-pure:hover {
+    background-color: #FFFFFF;
+  }
+
+  .hover\:text-black-carbon:hover {
+    color: #0B0B0B;
+  }
+
+  .hover\:bg-black-carbon:hover {
+    background-color: #0B0B0B;
+  }
+
+  .hover\:text-gray-smoke:hover {
+    color: #1C1C1C;
+  }
+
+  .hover\:bg-gray-smoke:hover {
+    background-color: #1C1C1C;
+  }
+
+  .hover\:text-gold-intense:hover {
+    color: #D4AF37;
+  }
+
+  .hover\:bg-gold-intense:hover {
+    background-color: #D4AF37;
+  }
+
+  .hover\:border-gold-intense:hover {
+    border-color: #D4AF37;
+  }
+
+  .hover\:text-gold-soft:hover {
+    color: #E0C873;
+  }
+
+  .hover\:bg-gold-soft:hover {
+    background-color: #E0C873;
+  }
+
+  .hover\:border-gold-soft:hover {
+    border-color: #E0C873;
   }
 
   .hover\:text-primary:hover {
-    color: #d4af37;
+    color: #D4AF37;
+  }
+
+  .hover\:bg-primary:hover {
+    background-color: #D4AF37;
+  }
+
+  .hover\:border-primary:hover {
+    border-color: #D4AF37;
   }
 
   .hover\:bg-opacity-90:hover {
-    --tw-bg-opacity: 0.9;
+    opacity: 0.9;
+  }
+
+  .hover\:bg-opacity-80:hover {
+    opacity: 0.8;
+  }
+
+  .hover\:scale-105:hover {
+    transform: scale(1.05);
+  }
+
+  .hover\:scale-110:hover {
+    transform: scale(1.1);
+  }
+
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-body {
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  }
+
+  .transition-smooth {
+    transition: all 0.3s ease;
+  }
+
+  .transition-fast {
+    transition: all 0.15s ease;
+  }
+
+  .transition-slow {
+    transition: all 0.5s ease;
   }
 }
